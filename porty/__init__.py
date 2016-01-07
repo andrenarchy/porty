@@ -3,7 +3,7 @@ import socket
 
 
 def getPort(minPort, maxPort):
-    ports = range(minPort, maxPort)
+    ports = list(range(minPort, maxPort))
     random.shuffle(ports)
     for port in ports:
         try:
