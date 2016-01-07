@@ -1,22 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-import random
-import socket
-
-
-def bindToPort(minPort, maxPort):
-    ports = range(minPort, maxPort)
-    random.shuffle(ports)
-    for port in ports:
-        try:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.bind(('', port))
-            return port, sock
-        except socket.error:
-            pass
-    raise RuntimeError('could not bind to a port')
-
+import getPort from porty
 
 def main():
     parser = argparse.ArgumentParser(description='get a free port within a '
@@ -28,8 +13,7 @@ def main():
     args = parser.parse_args()
 
     # get a port
-    port, sock = bindToPort(args.min, args.max)
-    sock.close()
+    port = getPort(args.min, args.max)
 
     print(port)
 
